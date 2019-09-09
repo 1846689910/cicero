@@ -5,7 +5,7 @@
   "main": "lib/server/index.js",
   "browser": "lib/client/index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "node ./clis/cli.js build"
   },
   "repository": {
     "type": "git",
@@ -57,7 +57,8 @@
     "chai": "^4.0.0",
     "clean-css": "^4.2.1",
     "clean-webpack-plugin": "^2.0.0",
-    "core-js": "^3.2.0"
+    "core-js": "^3.2.0",
+    "shelljs": "^0.8.3"
   },
   "engines": {
     "node": ">=8"

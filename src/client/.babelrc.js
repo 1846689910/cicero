@@ -1,7 +1,4 @@
 const coreJsVersion = require("core-js/package.json").version.split(".")[0];
-const useBuiltIns = archetype.babel.hasMultiTargets
-  ? { useBuiltIns: "entry", corejs: coreJsVersion }
-  : {};
 module.exports = {
   presets: [
     [
@@ -9,7 +6,8 @@ module.exports = {
       {
         loose: true,
         targets: "> 0.25%, not dead",
-        ...useBuiltIns
+        useBuiltIns: "entry",
+        corejs: coreJsVersion
       }
     ],
     "@babel/preset-typescript",
@@ -18,7 +16,7 @@ module.exports = {
   plugins: [
     "@babel/plugin-syntax-dynamic-import",
     "@loadable/babel-plugin",
-    "@babel/plugin-proposal-decorators",
+    ["@babel/plugin-proposal-decorators", { legacy: true }],
     ["@babel/plugin-proposal-class-properties", { loose: true }],
     "babel-plugin-lodash",
     "@babel/plugin-transform-runtime",
