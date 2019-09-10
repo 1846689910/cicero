@@ -3,37 +3,30 @@ import "jquery-ui-dist/jquery-ui.min.js";
 import "jquery-ui-dist/jquery-ui.min.css";
 import fa from "font-awesome/css/font-awesome.min.css";
 import DomElement from "../element/DomElement";
+import {
+  windowDefaultMaxStyle,
+  windowDefaultMinStyle,
+  windowDefaultStyle,
+  closeBtnStyle,
+  minBtnStyle,
+  maxBtnStyle,
+  btnGroupStyle
+} from "./styles";
 
-const windowDefaultStyle = {
-  width: "500px",
-  height: "350px",
-  border: "0.5px solid rgba(0,0,0,0.2)",
-  display: "flex",
-  flexFlow: "column",
-  position: "absolute",
-  borderRadius: "10px",
-  padding: "3px 0 0 0",
-  background: "white",
-  marginLeft: "-250px",
-  marginTop: "-175px",
-  top: "50%",
-  left: "50%"
-};
-const windowDefaultMaxStyle = {
-  width: "700px",
-  height: "550px",
-  marginLeft: "-350px",
-  marginTop: "-275px"
-};
-const windowDefaultMinStyle = {
-  width: "450px",
-  height: "300px",
-  marginLeft: "-225px",
-  marginTop: "-150px"
-};
+const defaultBodyHtml = new DomElement("h2")
+  .setStyle({ alignSelf: "center", textAlign: "center", flex: 1 })
+  .innerHTML("...Amazing Here...")
+  .toString();
+
 export default class PopupWindow {
   constructor(props = {}) {
-    const { windowStyle, windowMaxStyle, windowMinStyle } = props;
+    const {
+      windowStyle,
+      windowMaxStyle,
+      windowMinStyle,
+      title = "My Window",
+      bodyHTML = defaultBodyHtml
+    } = props;
     this._opened = false;
     this.isOpen = this.isOpen.bind(this);
     this._windowStyle = Object.assign({}, windowDefaultStyle, windowStyle);
@@ -46,6 +39,16 @@ export default class PopupWindow {
       {},
       windowDefaultMinStyle,
       windowMinStyle
+    );
+    this.title = title;
+    this.bodyHtml = bodyHTML;
+    this._closeBtn = this._btnGen("CLOSE");
+    this._minBtn = this._btnGen("MIN");
+    this._maxBtn = this._btnGen("MAX");
+    this._btnGroup = this._btnGroupGen(
+      this._closeBtn,
+      this._minBtn,
+      this._maxBtn
     );
     this._window = this._windowGen.call(this);
     this._bindEvents = this._bindEvents.bind(this);
@@ -67,34 +70,52 @@ export default class PopupWindow {
   }
   _windowGen() {
     const window = new DomElement("div").setStyle(this._windowStyle).get();
-    const baseCircleClassName = `${fa.fa} ${fa["fa-circle"]}`;
     window.innerHTML = `
-          <div style="height: 20px; text-align: center;">My Window</div>
+          <div style="height: 20px; text-align: center;">${this.title}</div>
           <div style="height: 100%; margin: 10px; display: flex; border: 0.5px solid rgba(0, 0, 0, 0.1); flex-flow: row wrap;">
-               <div><h2 style="align-self: center; text-align: center; flex: 1;">...Amazing Here ...</h2></div>
-          </div>
-          <div style="position: absolute; display: flex; flex-direction: row; width: 70px; justify-content: space-evenly; height: 20px; line-height: 20px;">
-              <i class="${baseCircleClassName} close-1846689910" aria-hidden="true" style="color: red; font-size: 14px;"></i>
-              <i class="${baseCircleClassName} minimize-1846689910" aria-hidden="true" style="color: #FFD662; font-size: 14px;"></i>
-              <i class="${baseCircleClassName} maximize-1846689910" aria-hidden="true" style="color: #79C753; font-size: 14px;"></i>
+              ${this.bodyHtml}
           </div>
       `;
+    window.appendChild(this._btnGroup);
     return window;
+  }
+  _btnGen(btnType) {
+    let style;
+    if (btnType === "CLOSE") {
+      style = closeBtnStyle;
+    } else if (btnType === "MIN") {
+      style = minBtnStyle;
+    } else {
+      style = maxBtnStyle;
+    }
+    return new DomElement("i")
+      .workOnClassList(x => {
+        x.add(fa.fa);
+        x.add(fa["fa-circle"]);
+        x.add(`cicero-popup-window-btn-${btnType.toLowerCase()}`);
+      })
+      .set("aria-hidden", "true")
+      .setStyle(style)
+      .get();
+  }
+  _btnGroupGen(...btns) {
+    return new DomElement("div")
+      .setStyle(btnGroupStyle)
+      .append(...btns)
+      .get();
   }
   _bindEvents() {
     const div = this._window;
-    if (this.isOpen() && div) {
-      div
-        .querySelector(".close-1846689910")
-        .addEventListener("click", this.close, false);
-      div.querySelector(".minimize-1846689910").addEventListener(
+    if (this.isOpen() && this._window) {
+      this._closeBtn.addEventListener("click", this.close, false);
+      this._minBtn.addEventListener(
         "click",
         e => {
           this._setStyle(div, this._windowMinStyle);
         },
         false
       );
-      div.querySelector(".maximize-1846689910").addEventListener(
+      this._maxBtn.addEventListener(
         "click",
         e => {
           this._setStyle(div, this._windowMaxStyle);
@@ -113,7 +134,7 @@ export default class PopupWindow {
           // handle: ".ui-draggable"
         })
         .resizable({
-          handles: "n, e, s, w",
+          handles: "n, e, s, w, se, sw",
           minHeight: 300,
           minWidth: 450,
           maxHeight: 450,

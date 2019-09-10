@@ -20,11 +20,15 @@ class DomElement {
     this.ele.removeAttribute(attr);
     return this;
   }
+  innerHTML(html) {
+    this.ele.innerHTML = html;
+    return this;
+  }
   get() {
     return this.ele;
   }
-  append(ele) {
-    this.ele.appendChild(ele);
+  append(...eles) {
+    eles.forEach(ele => this.ele.appendChild(ele));
     return this;
   }
   toString(ele = this.ele) {
