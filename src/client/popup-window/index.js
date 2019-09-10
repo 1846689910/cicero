@@ -2,6 +2,7 @@ import $ from "jquery";
 import "jquery-ui-dist/jquery-ui.min.js";
 import "jquery-ui-dist/jquery-ui.min.css";
 import fa from "font-awesome/css/font-awesome.min.css";
+import DomElement from "../element/DomElement";
 
 const windowDefaultStyle = {
   width: "500px",
@@ -65,10 +66,9 @@ export default class PopupWindow {
     }
   }
   _windowGen() {
-    const div = document.createElement("div");
-    this._setStyle(div, this._windowStyle);
+    const window = new DomElement("div").setStyle(this._windowStyle).get();
     const baseCircleClassName = `${fa.fa} ${fa["fa-circle"]}`;
-    div.innerHTML = `
+    window.innerHTML = `
           <div style="height: 20px; text-align: center;">My Window</div>
           <div style="height: 100%; margin: 10px; display: flex; border: 0.5px solid rgba(0, 0, 0, 0.1); flex-flow: row wrap;">
                <div><h2 style="align-self: center; text-align: center; flex: 1;">...Amazing Here ...</h2></div>
@@ -79,7 +79,7 @@ export default class PopupWindow {
               <i class="${baseCircleClassName} maximize-1846689910" aria-hidden="true" style="color: #79C753; font-size: 14px;"></i>
           </div>
       `;
-    return div;
+    return window;
   }
   _bindEvents() {
     const div = this._window;
