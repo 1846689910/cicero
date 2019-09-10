@@ -1,6 +1,10 @@
 class DomElement {
   constructor(name) {
-    this.ele = document.createElement(name);
+    if (typeof name === "object" && name !== null) {
+      this.ele = name;
+    } else {
+      this.ele = document.createElement(name);
+    }
   }
   set(attr, val) {
     this.ele.setAttribute(attr, val);

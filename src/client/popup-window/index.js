@@ -70,16 +70,6 @@ export default class PopupWindow {
   isOpen() {
     return this._opened;
   }
-  _setStyle(dom, style) {
-    if (
-      typeof dom === "object" &&
-      dom !== null &&
-      typeof style === "object" &&
-      style !== null
-    ) {
-      Object.entries(style).forEach(([k, v]) => (dom.style[k] = v));
-    }
-  }
   _windowGen() {
     const window = new DomElement("div").setStyle(this._windowStyle).get();
     window.innerHTML = `
@@ -166,12 +156,12 @@ export default class PopupWindow {
   }
   minimize(e, beforeMinimize, afterMinimize) {
     typeof beforeMinimize === "function" && beforeMinimize(e);
-    this._setStyle(this._window, this._windowMinStyle);
+    this._window = new DomElement(this._window).setStyle(this._windowMinStyle).get();
     typeof afterMinimize === "function" && afterMinimize(e);
   }
   maximize(e, beforeMaximize, afterMaximize) {
     typeof beforeMaximize === "function" && beforeMaximize(e);
-    this._setStyle(this._window, this._windowMaxStyle);
+    this._window = new DomElement(this._window).setStyle(this._windowMaxStyle).get();
     typeof afterMaximize === "function" && afterMaximize(e);
   }
 }
