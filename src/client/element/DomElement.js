@@ -20,8 +20,8 @@ class DomElement {
     if (typeof callback === "function") callback(this.ele.classList);
     return this;
   }
-  remove(attr) {
-    this.ele.removeAttribute(attr);
+  remove(...attrs) {
+    attrs.forEach(attr => this.ele.removeAttribute(attr));
     return this;
   }
   innerHTML(html) {
