@@ -41,6 +41,7 @@
     "@babel/preset-react": "^7.0.0",
     "@babel/preset-typescript": "^7.1.0",
     "@babel/register": "^7.0.0",
+    "@babel/runtime": "^7.6.0",
     "@loadable/babel-plugin": "^5.10.0",
     "@loadable/webpack-plugin": "^5.7.1",
     "babel-core": "7.0.0-bridge.0",
@@ -63,7 +64,9 @@
     "eslint-plugin-filenames": "^1.1.0",
     "eslint-plugin-flowtype": "^2.49.3",
     "eslint-plugin-react": "^7.4.0",
-    "shelljs": "^0.8.3"
+    "shelljs": "^0.8.3",
+    "uglify-js": "^3.6.0",
+    "uglifyjs-folder": "^1.5.1"
   },
   "engines": {
     "node": ">=8"
