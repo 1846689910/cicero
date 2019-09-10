@@ -7,7 +7,7 @@ const setEnv = env => ({ ...env, ...(!isWin32 && { PATH: process.env.PATH + ":/u
 const baseCommand = cmd => (isWin32 ? cmd : `$"${cmd}"`);
 
 const baseCommands = {
-  build: `${baseCommand("babel")} src -d lib --extensions=.js,.jsx,.ts,.tsx`,
+  build: `${baseCommand("babel")} src -d lib --extensions=.js,.jsx,.ts,.tsx --copy-files`,
   uglify: `${baseCommand("uglifyjs-folder")} lib -e -x .js -o lib`
 };
 
