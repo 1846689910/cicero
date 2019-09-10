@@ -10,13 +10,11 @@ import {
   closeBtnStyle,
   minBtnStyle,
   maxBtnStyle,
-  btnGroupStyle
-} from "./styles";
-
-const defaultBodyHtml = new DomElement("h2")
-  .setStyle({ alignSelf: "center", textAlign: "center", flex: 1 })
-  .innerHTML("...Amazing Here...")
-  .toString();
+  btnGroupStyle,
+  defaultBodyHtml,
+  defaultDraggableOptions,
+  defaultResizableOptions
+} from "./configs";
 
 export default class PopupWindow {
   constructor(props = {}) {
@@ -25,7 +23,10 @@ export default class PopupWindow {
       windowMaxStyle,
       windowMinStyle,
       title = "My Window",
-      bodyHTML = defaultBodyHtml
+      bodyHTML = defaultBodyHtml,
+      events = {},
+      draggableOptions,
+      resizableOptions
     } = props;
     this._opened = false;
     this.isOpen = this.isOpen.bind(this);
@@ -40,8 +41,19 @@ export default class PopupWindow {
       windowDefaultMinStyle,
       windowMinStyle
     );
+    this._draggableOptions = Object.assign(
+      {},
+      defaultDraggableOptions,
+      draggableOptions
+    );
+    this._resizableOptions = Object.assign(
+      {},
+      defaultResizableOptions,
+      resizableOptions
+    );
     this.title = title;
     this.bodyHtml = bodyHTML;
+    this.events = events;
     this._closeBtn = this._btnGen("CLOSE");
     this._minBtn = this._btnGen("MIN");
     this._maxBtn = this._btnGen("MAX");
@@ -105,47 +117,61 @@ export default class PopupWindow {
       .get();
   }
   _bindEvents() {
-    const div = this._window;
     if (this.isOpen() && this._window) {
-      this._closeBtn.addEventListener("click", this.close, false);
+      const {
+        beforeClose,
+        afterClose,
+        beforeMinimize,
+        afterMinimize,
+        beforeMaximize,
+        afterMaximize
+      } = this.events;
+      this._closeBtn.addEventListener(
+        "click",
+        e => this.close(e, beforeClose, afterClose),
+        false
+      );
       this._minBtn.addEventListener(
         "click",
-        e => {
-          this._setStyle(div, this._windowMinStyle);
-        },
+        e => this.minimize(e, beforeMinimize, afterMinimize),
         false
       );
       this._maxBtn.addEventListener(
         "click",
-        e => {
-          this._setStyle(div, this._windowMaxStyle);
-        },
+        e => this.maximize(e, beforeMaximize, afterMaximize),
         false
       );
     }
   }
   open() {
     if (!this.isOpen() && this._window) {
+      const { beforeOpen, afterOpen } = this.events;
+      typeof beforeOpen === "function" && beforeOpen();
       document.body.appendChild(this._window);
       this._opened = true;
       this._bindEvents();
       $(this._window)
-        .draggable({
-          // handle: ".ui-draggable"
-        })
-        .resizable({
-          handles: "n, e, s, w, se, sw",
-          minHeight: 300,
-          minWidth: 450,
-          maxHeight: 450,
-          maxWidth: 600
-        });
+        .draggable(this._draggableOptions)
+        .resizable(this._resizableOptions);
+      typeof afterOpen === "function" && afterOpen();
     }
   }
-  close() {
+  close(e, beforeClose, afterClose) {
     if (this.isOpen() && this._window) {
+      typeof beforeClose === "function" && beforeClose(e);
       document.body.removeChild(this._window);
       this._opened = false;
+      typeof afterClose === "function" && afterClose(e);
     }
+  }
+  minimize(e, beforeMinimize, afterMinimize) {
+    typeof beforeMinimize === "function" && beforeMinimize(e);
+    this._setStyle(this._window, this._windowMinStyle);
+    typeof afterMinimize === "function" && afterMinimize(e);
+  }
+  maximize(e, beforeMaximize, afterMaximize) {
+    typeof beforeMaximize === "function" && beforeMaximize(e);
+    this._setStyle(this._window, this._windowMaxStyle);
+    typeof afterMaximize === "function" && afterMaximize(e);
   }
 }

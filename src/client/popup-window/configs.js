@@ -1,3 +1,4 @@
+import DomElement from "../element/DomElement";
 export const windowDefaultStyle = {
   width: "500px",
   height: "350px",
@@ -45,4 +46,16 @@ export const btnGroupStyle = {
   justifyContent: "space-evenly",
   height: "20px",
   lineHeight: "20px"
+};
+export const defaultBodyHtml = new DomElement("h2")
+  .setStyle({ alignSelf: "center", textAlign: "center", flex: 1 })
+  .innerHTML("...Amazing Here...")
+  .toString();
+export const defaultDraggableOptions = {};
+export const defaultResizableOptions = {
+  handles: "n, e, s, w, se, sw",
+  minHeight: 300,
+  minWidth: 450,
+  maxHeight: 450,
+  maxWidth: 600
 };
