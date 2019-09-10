@@ -23,5 +23,10 @@ class DomElement {
   get() {
     return this.ele;
   }
+  toString(ele = this.ele){
+    const div = document.createElement("div");
+    div.appendChild(ele);
+    return div.innerHTML;
+  }
 }
 export default DomElement;
