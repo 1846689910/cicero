@@ -6,7 +6,8 @@
   "browser": "lib/client/index.js",
   "scripts": {
     "build": "node ./clis/cli.js build",
-    "lint": "eslint src/**/*.js[x]"
+    "lint": "eslint src/**/*.js[x]",
+    "test": "mocha test --recursive"
   },
   "repository": {
     "type": "git",
@@ -56,7 +57,7 @@
     "babel-plugin-react-intl": "^4.1.11",
     "babel-plugin-transform-node-env-inline": "^0.4.3",
     "babel-plugin-transform-react-remove-prop-types": "^0.4.20",
-    "chai": "^4.0.0",
+    "chai": "^4.2.0",
     "clean-css": "^4.2.1",
     "clean-webpack-plugin": "^2.0.0",
     "core-js": "^3.2.0",
@@ -64,7 +65,10 @@
     "eslint-plugin-filenames": "^1.1.0",
     "eslint-plugin-flowtype": "^2.49.3",
     "eslint-plugin-react": "^7.4.0",
+    "jsdom": "^15.1.1",
+    "mocha": "^6.2.0",
     "shelljs": "^0.8.3",
+    "sinon": "^7.4.2",
     "uglify-js": "^3.6.0",
     "uglifyjs-folder": "^1.5.1"
   },
