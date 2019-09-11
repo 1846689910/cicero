@@ -1,5 +1,4 @@
-const Path = require("path");
-require(Path.resolve("src/server/register-babel"));
+require("../../../src/server/register-babel")();
 const {
   default: DomElement
 } = require("../../../src/client/element/DomElement");
