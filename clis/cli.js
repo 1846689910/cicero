@@ -1,14 +1,29 @@
 const shell = require("shelljs");
 const Path = require("path");
+const Fs = require("fs");
 const method = process.argv[2];
 
 const isWin32 = process.platform === "win32";
-const setEnv = env => ({ ...env, ...(!isWin32 && { PATH: process.env.PATH + ":/usr/local/bin" }) });
+const setEnv = env => ({
+  ...env,
+  ...(!isWin32 && { PATH: process.env.PATH + ":/usr/local/bin" })
+});
 const baseCommand = cmd => (isWin32 ? cmd : `$"${cmd}"`);
+const getAllFiles = (dir, regex) =>
+  shell.find(dir).filter(p => {
+    if (regex) {
+      return regex.test(p) && Fs.lstatSync(p).isFile();
+    }
+    return Fs.lstatSync(p).isFile();
+  });
 
 const baseCommands = {
-  build: `${baseCommand("babel")} src -d lib --extensions=.js,.jsx,.ts,.tsx --copy-files`,
-  uglify: `${baseCommand("uglifyjs-folder")} lib -e -x .js -o lib`
+  build: `${baseCommand(
+    "babel"
+  )} src -d lib --extensions=.js,.jsx,.ts,.tsx --copy-files`,
+  uglify(input, output) {
+    return `${baseCommand("uglifyjs")} ${input} -o ${output}`;
+  }
 };
 
 const rmFiles = dir => shell.rm("-rf", dir);
@@ -19,7 +34,9 @@ const methods = {
     shell.exec(baseCommands.build, {
       env: setEnv({ NODE_ENV: "production" })
     });
-    shell.exec(baseCommands.uglify);
+    getAllFiles("lib", /\.[t|j]sx?$/).forEach(x => {
+      shell.exec(baseCommands.uglify(x, x));
+    });
   }
 };
 

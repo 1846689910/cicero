@@ -7,7 +7,7 @@
   "scripts": {
     "build": "node ./clis/cli.js build",
     "lint": "eslint src/**/*.js[x]",
-    "test": "mocha test --recursive"
+    "test": "mocha test/**/*.spec.js --recursive"
   },
   "repository": {
     "type": "git",
@@ -69,8 +69,7 @@
     "mocha": "^6.2.0",
     "shelljs": "^0.8.3",
     "sinon": "^7.4.2",
-    "uglify-js": "^3.6.0",
-    "uglifyjs-folder": "^1.5.1"
+    "uglify-es": "^3.3.9"
   },
   "engines": {
     "node": ">=8"

@@ -3,7 +3,7 @@ const {
   default: DomElement
 } = require("../../../src/client/element/DomElement");
 const { expect } = require("chai");
-const { html } = require("../resources/assets");
+const { baseHtml: html } = require("../resources/assets");
 const { JSDOM } = require("jsdom");
 describe("DomElement", () => {
   let dom;
