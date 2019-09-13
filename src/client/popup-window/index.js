@@ -28,7 +28,6 @@ export default class PopupWindow {
       resizableOptions
     } = props;
     this._opened = false;
-    this.isOpen = this.isOpen.bind(this);
     this._windowStyle = Object.assign({}, windowDefaultStyle, windowStyle);
     this._windowMaxStyle = Object.assign(
       {},
@@ -61,10 +60,7 @@ export default class PopupWindow {
       this._minBtn,
       this._maxBtn
     );
-    this._window = this._windowGen.call(this);
-    this._bindEvents = this._bindEvents.bind(this);
-    this.open = this.open.bind(this);
-    this.close = this.close.bind(this);
+    this._window = this._windowGen();
   }
   isOpen = () => this._opened;
   _windowGen = () => {

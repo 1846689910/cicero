@@ -8,11 +8,24 @@
 
 ### constructor
 
-**new DomElement(tagName: string)**
-- `tagName` is the created element tag name
-
-**new DomElement(htmlElement: object)**
-- `htmlElement` is an existing html dom element
+<table>
+  <thead>
+    <tr>
+      <th>Constructor</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><b>new DomElement(tagName: string)</b></td>
+      <td><b>wrap a create element whose tag name will be `tagName`</b></td>
+    </tr>
+    <tr>
+      <td><b>new DomElement(htmlElement: object)</b></td>
+      <td><b>wrap an existing html dom element</b></td>
+    </tr>
+  </tbody>
+</table>
 
 ### methods
 
@@ -38,7 +51,7 @@
     <tr>
       <td><b>DomElement</b></td>
       <td><b>workOnClassList(callback: function)</b></td>
-      <td><b>set a callback function <pre>(classList)=>{}</pre> to work on classList</b></td>
+      <td><b>set a callback function <code>(classList)=>{}</code> to work on classList</b></td>
     </tr>
     <tr>
       <td><b>DomElement</b></td>

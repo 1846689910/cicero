@@ -39,6 +39,7 @@ export const maxBtnStyle = {
 };
 export const btnGroupStyle = {
   position: "absolute",
+  top: "10px",
   display: "flex",
   flexDirection: "row",
   width: "70px",
