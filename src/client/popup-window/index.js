@@ -71,10 +71,13 @@ export default class PopupWindow {
     return this._opened;
   }
   _windowGen() {
-    const window = new DomElement("div").setStyle(this._windowStyle).get();
+    const window = new DomElement("div")
+      .workOnClassList(x => x.add("cicero-popup-window"))
+      .setStyle(this._windowStyle)
+      .get();
     window.innerHTML = `
-          <div style="height: 20px; text-align: center;">${this.title}</div>
-          <div style="height: 100%; margin: 10px; display: flex; border: 0.5px solid rgba(0, 0, 0, 0.1); flex-flow: row wrap;">
+          <div class="cicero-popup-window-title" style="height: 20px; text-align: center;">${this.title}</div>
+          <div class="cicero-popup-window-body" style="height: 100%; margin: 10px; display: flex; border: 0.5px solid rgba(0, 0, 0, 0.1); flex-flow: row wrap;">
               ${this.bodyHtml}
           </div>
       `;
@@ -156,12 +159,16 @@ export default class PopupWindow {
   }
   minimize(e, beforeMinimize, afterMinimize) {
     typeof beforeMinimize === "function" && beforeMinimize(e);
-    this._window = new DomElement(this._window).setStyle(this._windowMinStyle).get();
+    this._window = new DomElement(this._window)
+      .setStyle(this._windowMinStyle)
+      .get();
     typeof afterMinimize === "function" && afterMinimize(e);
   }
   maximize(e, beforeMaximize, afterMaximize) {
     typeof beforeMaximize === "function" && beforeMaximize(e);
-    this._window = new DomElement(this._window).setStyle(this._windowMaxStyle).get();
+    this._window = new DomElement(this._window)
+      .setStyle(this._windowMaxStyle)
+      .get();
     typeof afterMaximize === "function" && afterMaximize(e);
   }
 }
