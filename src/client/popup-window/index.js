@@ -11,7 +11,6 @@ import {
   minBtnStyle,
   maxBtnStyle,
   btnGroupStyle,
-  defaultBodyHtml,
   defaultDraggableOptions,
   defaultResizableOptions
 } from "./configs";
@@ -22,8 +21,8 @@ export default class PopupWindow {
       windowStyle,
       windowMaxStyle,
       windowMinStyle,
-      title = "My Window",
-      bodyHTML = defaultBodyHtml,
+      title = "",
+      bodyHTML = "",
       events = {},
       draggableOptions,
       resizableOptions
@@ -67,10 +66,8 @@ export default class PopupWindow {
     this.open = this.open.bind(this);
     this.close = this.close.bind(this);
   }
-  isOpen() {
-    return this._opened;
-  }
-  _windowGen() {
+  isOpen = () => this._opened;
+  _windowGen = () => {
     const window = new DomElement("div")
       .workOnClassList(x => x.add("cicero-popup-window"))
       .setStyle(this._windowStyle)
@@ -83,8 +80,8 @@ export default class PopupWindow {
       `;
     window.appendChild(this._btnGroup);
     return window;
-  }
-  _btnGen(btnType) {
+  };
+  _btnGen = btnType => {
     let style;
     if (btnType === "CLOSE") {
       style = closeBtnStyle;
@@ -102,14 +99,14 @@ export default class PopupWindow {
       .set("aria-hidden", "true")
       .setStyle(style)
       .get();
-  }
-  _btnGroupGen(...btns) {
+  };
+  _btnGroupGen = (...btns) => {
     return new DomElement("div")
       .setStyle(btnGroupStyle)
       .append(...btns)
       .get();
-  }
-  _bindEvents() {
+  };
+  _bindEvents = () => {
     if (this.isOpen() && this._window) {
       const {
         beforeClose,
@@ -135,8 +132,8 @@ export default class PopupWindow {
         false
       );
     }
-  }
-  open() {
+  };
+  open = () => {
     if (!this.isOpen() && this._window) {
       const { beforeOpen, afterOpen } = this.events;
       typeof beforeOpen === "function" && beforeOpen();
@@ -148,27 +145,27 @@ export default class PopupWindow {
         .resizable(this._resizableOptions);
       typeof afterOpen === "function" && afterOpen();
     }
-  }
-  close(e, beforeClose, afterClose) {
+  };
+  close = (e, beforeClose, afterClose) => {
     if (this.isOpen() && this._window) {
       typeof beforeClose === "function" && beforeClose(e);
       document.body.removeChild(this._window);
       this._opened = false;
       typeof afterClose === "function" && afterClose(e);
     }
-  }
-  minimize(e, beforeMinimize, afterMinimize) {
+  };
+  minimize = (e, beforeMinimize, afterMinimize) => {
     typeof beforeMinimize === "function" && beforeMinimize(e);
     this._window = new DomElement(this._window)
       .setStyle(this._windowMinStyle)
       .get();
     typeof afterMinimize === "function" && afterMinimize(e);
-  }
-  maximize(e, beforeMaximize, afterMaximize) {
+  };
+  maximize = (e, beforeMaximize, afterMaximize) => {
     typeof beforeMaximize === "function" && beforeMaximize(e);
     this._window = new DomElement(this._window)
       .setStyle(this._windowMaxStyle)
       .get();
     typeof afterMaximize === "function" && afterMaximize(e);
-  }
+  };
 }

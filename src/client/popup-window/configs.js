@@ -47,10 +47,6 @@ export const btnGroupStyle = {
   height: "20px",
   lineHeight: "20px"
 };
-export const defaultBodyHtml = new DomElement("h2")
-  .setStyle({ alignSelf: "center", textAlign: "center", flex: 1 })
-  .innerHTML("...Amazing Here...")
-  .toString();
 export const defaultDraggableOptions = {};
 export const defaultResizableOptions = {
   handles: "n, e, s, w, se, sw",
