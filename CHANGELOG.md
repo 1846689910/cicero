@@ -1,6 +1,6 @@
 # 9/12/2019
 
-#### Unrealease
+#### [1.0.1](https://github.com/1846689910/cicero/commit/d98c32b2c8f2195eeffc5272f7c9ff6275e4a80c)
 
 ### Creates
 - Added `DomElement` test cases
