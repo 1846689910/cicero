@@ -30,7 +30,11 @@ class DomElement {
   };
   get = () => this.ele;
   append = (...eles) => {
-    eles.forEach(ele => this.ele.appendChild(ele));
+    this.ele.append(...eles);
+    return this;
+  };
+  prepend = (...eles) => {
+    this.ele.prepend(...eles);
     return this;
   };
   toString = (ele = this.ele) => {

@@ -86,6 +86,26 @@ describe("DomElement", () => {
       const div = new DomElement("div").append(new DomElement("p").get()).get();
       expect(div.children[0].tagName.toLowerCase()).to.equal("p");
     });
+    it("should append several children to the element", () => {
+      const p1 = new DomElement("p").innerHTML("P1").get();
+      const p2 = new DomElement("p").innerHTML("P2").get();
+      const div = new DomElement("div").append(p1, p2).get();
+      expect(div.children.length).to.equal(2);
+      expect(div.children[0].innerHTML).to.equal("P1");
+      expect(div.children[1].innerHTML).to.equal("P2");
+    });
+  });
+
+  describe("prepend", () => {
+    it("should prepend several children to the element", () => {
+      const p1 = new DomElement("p").innerHTML("P1").get();
+      const p2 = new DomElement("p").innerHTML("P2").get();
+      const div = new DomElement("div").innerHTML("<div/>").prepend(p1, p2).get();
+      expect(div.children.length).to.equal(3);
+      expect(div.children[0].innerHTML).to.equal("P1");
+      expect(div.children[1].innerHTML).to.equal("P2");
+      expect(div.children[2].tagName.toLowerCase()).to.equal("div");
+    });
   });
 
   describe("toString", () => {
