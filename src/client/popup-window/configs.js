@@ -1,4 +1,3 @@
-import DomElement from "../element/DomElement";
 export const windowDefaultStyle = {
   width: "500px",
   height: "350px",
