@@ -1,4 +1,3 @@
-import DomElement from "../element/DomElement";
 export const windowDefaultStyle = {
   width: "500px",
   height: "350px",
@@ -40,6 +39,7 @@ export const maxBtnStyle = {
 };
 export const btnGroupStyle = {
   position: "absolute",
+  top: "10px",
   display: "flex",
   flexDirection: "row",
   width: "70px",
@@ -47,10 +47,6 @@ export const btnGroupStyle = {
   height: "20px",
   lineHeight: "20px"
 };
-export const defaultBodyHtml = new DomElement("h2")
-  .setStyle({ alignSelf: "center", textAlign: "center", flex: 1 })
-  .innerHTML("...Amazing Here...")
-  .toString();
 export const defaultDraggableOptions = {};
 export const defaultResizableOptions = {
   handles: "n, e, s, w, se, sw",
