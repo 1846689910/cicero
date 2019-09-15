@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Binder Test</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="https://unpkg.com/mocha/mocha.css" />
+  </head>
+
+  <body>
+    <div id="mocha"></div>
+
+    <script src="https://unpkg.com/chai/chai.js"></script>
+    <script src="https://unpkg.com/mocha/mocha.js"></script>
+
+    <script class="mocha-init">
+      mocha.setup("bdd");
+      mocha.checkLeaks();
+    </script>
+    <script>
+      class Binder {
+        static bind(eventObj = {}) {
+          if (window && window.addEventListener) {
+            Object.entries(eventObj).forEach(([type, reducer]) =>
+              window.addEventListener(type, attr => reducer(attr), false)
+            );
+            Window.prototype.dispatch = Binder.dispatch;
+          }
+        }
+        static dispatch(event = {}) {
+          if (window && window.dispatchEvent) {
+            const { type, ...attr } = event;
+            const e = Object.assign(new Event(type), attr);
+            window.dispatchEvent(e);
+          }
+        }
+      }
+    </script>
+    <script>
+      const { expect } = chai;
+      describe("Binder", () => {
+        it("should bind event and corresponding reducer", () => {
+          Binder.bind({
+            ADD_DIV(attr) {
+              const div = document.createElement("div");
+              div.innerHTML = attr.html;
+              document.body.appendChild(div);
+            }
+          });
+          Binder.dispatch({
+            type: "ADD_DIV",
+            html: "Hello World"
+          });
+          const ele = document.querySelector("div");
+          expect(ele).to.exist;
+        });
+      });
+    </script>
+    <script class="mocha-exec">
+      mocha.run();
+    </script>
+  </body>
+</html>
