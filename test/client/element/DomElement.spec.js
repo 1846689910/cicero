@@ -122,6 +122,17 @@ describe("DomElement", () => {
     });
   });
 
+  describe("addEvent", () => {
+    it("should add event listeners to the element", () => {
+      let msg;
+      const body = new DomElement(document.body)
+        .addEvent(["click", () => (msg = "clicked")])
+        .get();
+      body.click();
+      expect(msg).to.equal("clicked");
+    });
+  });
+
   describe("toString", () => {
     it("should get the element's string format", () => {
       const s = new DomElement("div").innerHTML("123").toString();
