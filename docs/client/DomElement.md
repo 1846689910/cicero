@@ -52,6 +52,11 @@
     </tr>
     <tr>
       <td><b>DomElement</b></td>
+      <td><b>unsetStyle(...styles: string)</b></td>
+      <td><b>set the html element specified style to "unset"</b></td>
+    </tr>
+    <tr>
+      <td><b>DomElement</b></td>
       <td><b>workOnClassList(callback: function)</b></td>
       <td><b>set a callback function <code>(classList)=>{}</code> to work on classList</b></td>
     </tr>
@@ -72,8 +77,13 @@
     </tr>
     <tr>
       <td><b>DomElement</b></td>
-      <td><b>append(eles: array[object])</b></td>
+      <td><b>append(...eles: object)</b></td>
       <td><b>append several html elements in this element</b></td>
+    </tr>
+    <tr>
+      <td><b>DomElement</b></td>
+      <td><b>prepend(...eles: object)</b></td>
+      <td><b>prepend several html elements in this element</b></td>
     </tr>
     <tr>
       <td><b>string</b></td>
