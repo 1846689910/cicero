@@ -5,7 +5,13 @@
 ### Creates
 
 ### Updates
+
 - `PopupWindow` expose `window`, `windowTitle`, `windowBody` style and element handler
+
+- `PopupWindow` add new getters `getWindow()`, `getWindowBody()`, `getWindowTitle()`, `getMinBtn()`, `getMaxBtn()`, `getCloseBtn()` 
+
+- `DomElement` add `addEvent(... eventInfoArrs)`
+
 ### Removals
 
 # 9/14/2019

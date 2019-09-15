@@ -36,10 +36,22 @@ export default class PopupWindow {
     this._windowStyle = composeStyle(windowDefaultStyle, windowStyle);
     this._windowMaxStyle = composeStyle(windowDefaultMaxStyle, windowMaxStyle);
     this._windowMinStyle = composeStyle(windowDefaultMinStyle, windowMinStyle);
-    this._windowTitleStyle = composeStyle(windowTitleDefaultStyle, windowTitleStyle);
-    this._windowBodyStyle = composeStyle(windowBodyDefaultStyle, windowBodyStyle);
-    this._draggableOptions = composeStyle(defaultDraggableOptions, draggableOptions);
-    this._resizableOptions = composeStyle(defaultResizableOptions, resizableOptions);
+    this._windowTitleStyle = composeStyle(
+      windowTitleDefaultStyle,
+      windowTitleStyle
+    );
+    this._windowBodyStyle = composeStyle(
+      windowBodyDefaultStyle,
+      windowBodyStyle
+    );
+    this._draggableOptions = composeStyle(
+      defaultDraggableOptions,
+      draggableOptions
+    );
+    this._resizableOptions = composeStyle(
+      defaultResizableOptions,
+      resizableOptions
+    );
     this.title = title;
     this.bodyHtml = bodyHTML;
     this.events = events;
@@ -59,6 +71,9 @@ export default class PopupWindow {
   getWindow = () => this._window;
   getWindowTitle = () => this._windowTitle;
   getWindowBody = () => this._windowBody;
+  getMinBtn = () => this._minBtn;
+  getMaxBtn = () => this._maxBtn;
+  getCloseBtn = () => this._closeBtn;
   isOpen = () => this._opened;
   _windowGen = () => {
     const eleWindow = new DomElement("div")

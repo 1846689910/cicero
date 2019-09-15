@@ -44,6 +44,12 @@ class DomElement {
     this.ele.prepend(...eles);
     return this;
   };
+  addEvent = (...eventInfoArrs) => {
+    eventInfoArrs.forEach(([type, listener, useCapture = false]) =>
+      this.ele.addEventListener(type, listener, useCapture)
+    );
+    return this;
+  };
   toString = (ele = this.ele) => {
     const div = document.createElement("div");
     div.appendChild(ele);
