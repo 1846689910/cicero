@@ -16,6 +16,13 @@ class DomElement {
     }
     return this;
   };
+  unsetStyle = (...styles) =>
+    this.setStyle(
+      styles.reduce((p, k) => {
+        p[k] = "unset";
+        return p;
+      }, {})
+    );
   workOnClassList = callback => {
     if (typeof callback === "function") callback(this.ele.classList);
     return this;

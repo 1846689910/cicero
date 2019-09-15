@@ -69,7 +69,9 @@ export default class PopupWindow {
       .setStyle(this._windowStyle)
       .get();
     window.innerHTML = `
-          <div class="cicero-popup-window-title" style="height: 20px; text-align: center;">${this.title}</div>
+          <div class="cicero-popup-window-title" style="height: 20px; text-align: center;">
+            <span style="display: inline-block; width: 40%; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">${this.title}</span>
+          </div>
           <div class="cicero-popup-window-body" style="height: 100%; margin: 10px; display: flex; border: 0.5px solid rgba(0, 0, 0, 0.1); flex-flow: row wrap;">
               ${this.bodyHtml}
           </div>

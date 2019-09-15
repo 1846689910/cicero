@@ -61,10 +61,15 @@
       <td><b>object</b></td>
       <td><b><code>
         {
-          width: "450px",
-          height: "300px",
-          marginLeft: "-225px",
-          marginTop: "-150px"
+          width: "200px",
+          height: "40px",
+          position: "fixed",
+          bottom: "0",
+          right: "0",
+          marginLeft: "unset",
+          marginTop: "unset",
+          top: "unset",
+          left: "unset"
         }
       </code></b></td>
       <td><b>set the style of window if minimize clicked</b></td>
@@ -98,8 +103,8 @@
       <td><b>object</b></td>
       <td><b><code>{
         handles: "n, e, s, w, se, sw",
-        minHeight: 300,
-        minWidth: 450,
+        minHeight: 40,
+        minWidth: 200,
         maxHeight: 450,
         maxWidth: 600
       }</code></b></td>
