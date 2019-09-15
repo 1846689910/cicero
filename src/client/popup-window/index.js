@@ -7,6 +7,8 @@ import {
   windowDefaultMaxStyle,
   windowDefaultMinStyle,
   windowDefaultStyle,
+  windowTitleDefaultStyle,
+  windowBodyDefaultStyle,
   closeBtnStyle,
   minBtnStyle,
   maxBtnStyle,
@@ -14,6 +16,7 @@ import {
   defaultDraggableOptions,
   defaultResizableOptions
 } from "./configs";
+import { composeStyle } from "./utils";
 
 export default class PopupWindow {
   constructor(props = {}) {
@@ -21,6 +24,8 @@ export default class PopupWindow {
       windowStyle,
       windowMaxStyle,
       windowMinStyle,
+      windowTitleStyle,
+      windowBodyStyle,
       title = "",
       bodyHTML = "",
       events = {},
@@ -28,24 +33,22 @@ export default class PopupWindow {
       resizableOptions
     } = props;
     this._opened = false;
-    this._windowStyle = Object.assign({}, windowDefaultStyle, windowStyle);
-    this._windowMaxStyle = Object.assign(
-      {},
-      windowDefaultMaxStyle,
-      windowMaxStyle
+    this._windowStyle = composeStyle(windowDefaultStyle, windowStyle);
+    this._windowMaxStyle = composeStyle(windowDefaultMaxStyle, windowMaxStyle);
+    this._windowMinStyle = composeStyle(windowDefaultMinStyle, windowMinStyle);
+    this._windowTitleStyle = composeStyle(
+      windowTitleDefaultStyle,
+      windowTitleStyle
     );
-    this._windowMinStyle = Object.assign(
-      {},
-      windowDefaultMinStyle,
-      windowMinStyle
+    this._windowBodyStyle = composeStyle(
+      windowBodyDefaultStyle,
+      windowBodyStyle
     );
-    this._draggableOptions = Object.assign(
-      {},
+    this._draggableOptions = composeStyle(
       defaultDraggableOptions,
       draggableOptions
     );
-    this._resizableOptions = Object.assign(
-      {},
+    this._resizableOptions = composeStyle(
       defaultResizableOptions,
       resizableOptions
     );
@@ -60,24 +63,36 @@ export default class PopupWindow {
       this._minBtn,
       this._maxBtn
     );
-    this._window = this._windowGen();
+    const [_window, _windowTitle, _windowBody] = this._windowGen();
+    this._window = _window;
+    this._windowTitle = _windowTitle;
+    this._windowBody = _windowBody;
   }
+  getWindow = () => this._window;
+  getWindowTitle = () => this._windowTitle;
+  getWindowBody = () => this._windowBody;
+  getMinBtn = () => this._minBtn;
+  getMaxBtn = () => this._maxBtn;
+  getCloseBtn = () => this._closeBtn;
   isOpen = () => this._opened;
   _windowGen = () => {
-    const window = new DomElement("div")
+    const eleWindow = new DomElement("div")
       .workOnClassList(x => x.add("cicero-popup-window"))
-      .setStyle(this._windowStyle)
+      .setStyle(this._windowStyle);
+    const windowTitle = new DomElement("div")
+      .workOnClassList(x => x.add("cicero-popup-window-title"))
+      .setStyle(this._windowTitleStyle)
+      .innerHTML(
+        `<span style="display: inline-block; width: 40%; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">${this.title}</span>`
+      )
       .get();
-    window.innerHTML = `
-          <div class="cicero-popup-window-title" style="height: 20px; text-align: center;">
-            <span style="display: inline-block; width: 40%; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">${this.title}</span>
-          </div>
-          <div class="cicero-popup-window-body" style="height: 100%; margin: 10px; display: flex; border: 0.5px solid rgba(0, 0, 0, 0.1); flex-flow: row wrap;">
-              ${this.bodyHtml}
-          </div>
-      `;
-    window.appendChild(this._btnGroup);
-    return window;
+    const windowBody = new DomElement("div")
+      .workOnClassList(x => x.add("cicero-popup-window-body"))
+      .setStyle(this._windowBodyStyle)
+      .innerHTML(this.bodyHtml)
+      .get();
+    eleWindow.append(windowTitle, windowBody, this._btnGroup);
+    return [eleWindow.get(), windowTitle, windowBody];
   };
   _btnGen = btnType => {
     let style;

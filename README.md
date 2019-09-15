@@ -4,6 +4,12 @@
 
 a useful utils collection
 
+## Install
+
+```
+npm install cicero
+```
+
 ## Utilities
 
 ### Client

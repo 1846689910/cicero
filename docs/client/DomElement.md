@@ -86,6 +86,12 @@
       <td><b>prepend several html elements in this element</b></td>
     </tr>
     <tr>
+      <td><b>DomElement</b></td>
+      <td><b>addEvent(...eventInfoArrs: array)</b></td>
+      <td><b>add event listener to this element, <code>eventInfoArrs</code> is <code>[type, listener, useCapture=false]</code>,
+      use like <code>addEvent(["click", () => console.log("clicked")])</code></b></td>
+    </tr>
+    <tr>
       <td><b>string</b></td>
       <td><b>toString()</b></td>
       <td><b>get the string format of the nested element</b></td>

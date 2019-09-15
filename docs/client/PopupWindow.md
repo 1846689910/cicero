@@ -6,6 +6,26 @@
 
 `PopupWindow` is a util class for client side to popup a window interface.
 
+![popup-window](./images/popup-window.png "popup-window")
+
+## usage
+
+```js
+import { PopupWindow } from "cicero/lib/client";
+
+const bodyHTML = `
+  <div style="height: 100%; width: 100%; display: flex; flex-flow: column wrap; overflow: hidden;">
+    <div style="position: relative; top: 35%;">
+      <h2 style="text-align:center;">...Amazing In Built...</h2>
+      <div style="text-align:center;">
+        <button class="btn btn-primary">Demo</button>
+      </div>
+    </div>
+  </div>
+`;
+const popup = new PopupWindow({ title: "Welcome to type-18", bodyHTML });
+```
+
 ## API
 
 ### constructor
@@ -41,7 +61,27 @@
       <td><b>windowStyle</b></td>
       <td><b>object</b></td>
       <td><b><code>undefined</code></b></td>
-      <td><b>set the style of outer box of window</b></td>
+      <td><b>set the style of outer box of window, whose class is <code>cicero-popup-window</code></b></td>
+    </tr>
+      <tr>
+      <td><b>windowTitleStyle</b></td>
+      <td><b>object</b></td>
+      <td><b><code>
+        {  height: "20px", textAlign: "center" }
+      </code></b></td>
+      <td><b>set the style of window title, whose class is <code>cicero-popup-window-title</code></b></td>
+    </tr>
+    <tr>
+      <td><b>windowBodyStyle</b></td>
+      <td><b>object</b></td>
+      <td><b><code>{
+        height: "100%",
+        margin: "10px",
+        display: "flex",
+        border: "0.5px solid rgba(0, 0, 0, 0.1)",
+        flexFlow: "row wrap"
+      }</code></b></td>
+      <td><b>set the style of window body, whose class is <code>cicero-popup-window-body</code></b></td>
     </tr>
     <tr>
       <td><b>windowMaxStyle</b></td>
@@ -148,6 +188,36 @@
       <td><b>undefined</b></td>
       <td><b>maximize()</b></td>
       <td><b>maximize the window with the windowMaxStyle</b></td>
+    </tr>
+    <tr>
+      <td><b>object</b></td>
+      <td><b>getWindow()</b></td>
+      <td><b>get the outside wrapper element of this popup-window</b></td>
+    </tr>
+    <tr>
+      <td><b>object</b></td>
+      <td><b>getWindowTitle()</b></td>
+      <td><b>get window title element</b></td>
+    </tr>
+    <tr>
+      <td><b>object</b></td>
+      <td><b>getWindowBody()</b></td>
+      <td><b>get window body element</b></td>
+    </tr>
+    <tr>
+      <td><b>object</b></td>
+      <td><b>getMinBtn()</b></td>
+      <td><b>get the minimize button element</b></td>
+    </tr>
+    <tr>
+      <td><b>object</b></td>
+      <td><b>getMaxBtn()</b></td>
+      <td><b>get the maximize button element</b></td>
+    </tr>
+    <tr>
+      <td><b>object</b></td>
+      <td><b>getCloseBtn()</b></td>
+      <td><b>get the close button element</b></td>
     </tr>
   </tbody>
 </table>
