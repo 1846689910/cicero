@@ -14,6 +14,8 @@ The following utils are only applicable to front end client side in browser envi
 
 - **[PopupWindow](./docs/client/PopupWindow.md)**
 
+- **[Binder](./docs/client/Binder.md)**
+
 ### Compatible
 
 The following utils are applicable to both client side and server side
