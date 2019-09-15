@@ -5,7 +5,7 @@
 ## description
 
 `Binder` is an event binding util class that simulating the event driven mechanism in client side.
-It will bind event listener to `window`
+It will bind event listener to `window`.
 
 ## API
 

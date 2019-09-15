@@ -3,7 +3,7 @@
 #### Unrealeasd
 
 ### Creates
-
+- Add `Binder` for simple event driven mechanism in client side
 ### Updates
 
 - Update `PopupWindow` ui and its minimum style
