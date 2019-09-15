@@ -7,6 +7,7 @@
 ### Updates
 
 - Update `PopupWindow` ui and its minimum style
+- Update `DomElement` add `unsetStyle`
 
 ### Removals
 
