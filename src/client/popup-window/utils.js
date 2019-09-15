@@ -1,0 +1,1 @@
+export const composeStyle = (...style) => Object.assign({}, ...style);

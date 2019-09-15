@@ -1,3 +1,13 @@
+# 9/15/2019
+
+#### Unreleased
+
+### Creates
+
+### Updates
+- `PopupWindow` expose `window`, `windowTitle`, `windowBody` style and element handler
+### Removals
+
 # 9/14/2019
 
 #### [1.1.0](https://github.com/1846689910/cicero/commit/bfc5632ad37d9261f02af6430dc7161994e4bd97)
