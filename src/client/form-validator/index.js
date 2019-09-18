@@ -13,7 +13,7 @@ const defaultOptions = {
   /**
    * validate function to validate the eternal result of those elements, default is requesting all `true` to `true`,
    * the results array order is the same as the elements order
-   * @param {array} results
+   * @param {array} results an array of boolean value show valid status of each sub form element
    * @returns boolean
    */
   validate(results) {
@@ -31,24 +31,39 @@ export class FormValidator {
   constructor(evUnits, options = {}) {
     this.evUnits = evUnits;
     this.options = Object.assign({}, defaultOptions, options);
-    this._results = this.evUnits.map(x => x.validator(x.element));
-    this._init();
-    this.triggerCallback();
+    this._applied = false;
+    this._results = this.evUnits.map(x => x.validator(x.element));  // array<boolean>
+    this._listeners = new WeakMap();  // WeakMap<Element, ListenerFunction>
   }
+  apply = () => {
+    if (!this._applied) {
+      this._init();
+      this._triggerCallback();
+      this._applied = true;
+    }
+  };
+  unapply = () => {
+    if (this._applied) {
+      // TODO: once unapplied, needs to reset styles of recipient?
+      this.evUnits.forEach(x => {
+        x.element.removeEventListener("input", this._listeners.get(x.element), false);
+        this._listeners.delete(x.element);
+      });
+      this._applied = false;
+    }
+  };
   _init = () => {
-    this.evUnits.forEach((x, i) =>
-      x.element.addEventListener(
-        "input",
-        () => {
-          this._results[i] = x.validator(x.element);
-          this.triggerCallback();
-        },
-        false
-      )
-    );
+    this.evUnits.forEach((x, i) => {
+      const listener = function() {
+        this._results[i] = x.validator(x.element);
+        this._triggerCallback();
+      };
+      x.element.addEventListener("input", listener, false);
+      this._listeners.set(x.element, listener);
+    });
   };
   isValid = () => this.options.validate(this._results);
-  triggerCallback = () => {
+  _triggerCallback = () => {
     this.isValid()
       ? this.options.validCallback()
       : this.options.invalidCallback();
