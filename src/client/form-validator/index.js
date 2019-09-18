@@ -32,8 +32,8 @@ export class FormValidator {
     this.evUnits = evUnits;
     this.options = Object.assign({}, defaultOptions, options);
     this._applied = false;
-    this._results = this.evUnits.map(x => x.validator(x.element));  // array<boolean>
-    this._listeners = new WeakMap();  // WeakMap<Element, ListenerFunction>
+    this._results = this.evUnits.map(x => x.validator(x.element)); // array<boolean>
+    this._listeners = new WeakMap(); // WeakMap<Element, ListenerFunction>
   }
   apply = () => {
     if (!this._applied) {
@@ -46,7 +46,8 @@ export class FormValidator {
     if (this._applied) {
       // TODO: once unapplied, needs to reset styles of recipient?
       this.evUnits.forEach(x => {
-        x.element.removeEventListener("input", this._listeners.get(x.element), false);
+        const listener = this._listeners.get(x.element);
+        x.element.removeEventListener("input", listener, false);
         this._listeners.delete(x.element);
       });
       this._applied = false;
@@ -54,7 +55,7 @@ export class FormValidator {
   };
   _init = () => {
     this.evUnits.forEach((x, i) => {
-      const listener = function() {
+      const listener = () => {
         this._results[i] = x.validator(x.element);
         this._triggerCallback();
       };
