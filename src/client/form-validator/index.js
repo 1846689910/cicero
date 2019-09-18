@@ -32,7 +32,11 @@ const defaultOptions = {
     return results.every(x => !!x);
   },
   validCallback() {},
-  invalidCallback() {}
+  invalidCallback() {},
+  beforeApply() {},
+  afterApply() {},
+  beforeUnapply() {},
+  afterUnapply() {}
 };
 export class FormValidator {
   /**
@@ -49,13 +53,16 @@ export class FormValidator {
   }
   apply = () => {
     if (!this._applied) {
+      this.options.beforeApply();
       this._init();
       this._triggerCallback();
       this._applied = true;
+      this.options.afterApply();
     }
   };
   unapply = () => {
     if (this._applied) {
+      this.options.beforeUnapply();
       // TODO: once unapplied, needs to reset styles of recipient?
       this.evUnits.forEach(x => {
         const listener = this._listeners.get(x.element);
@@ -63,6 +70,7 @@ export class FormValidator {
         this._listeners.delete(x.element);
       });
       this._applied = false;
+      this.options.afterUnapply();
     }
   };
   _init = () => {
