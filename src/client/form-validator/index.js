@@ -1,26 +1,3 @@
-const defaultOptions4EVUnit = {
-  validStyle: {
-    border: "1px solid green",
-    boxShadow: "0 0 3px green"
-  },
-  invalidStyle: {
-    border: "1px solid red",
-    boxShadow: "0 0 3px red"
-  }
-};
-export class EVUnit {
-  /**
-   * @description form element validator unit used to wrap element and its validator function
-   * @param {object}    element: a form element
-   * @param {function}  validator: a validate function that will take the `element` as parameter, and return `boolean` value
-   * @param {object}    options: an object contains `validStyle`, `invalidStyle` for the element's validity itself
-   */
-  constructor(element, validator, options = defaultOptions4EVUnit) {
-    this.element = element;
-    this.validator = validator;
-    this.options = options;
-  }
-}
 const defaultOptions = {
   /**
    * validate function to validate the eternal result of those elements, default is requesting all `true` to `true`,
@@ -38,7 +15,8 @@ const defaultOptions = {
   beforeUnapply() {},
   afterUnapply() {}
 };
-export class FormValidator {
+
+export default class FormValidator {
   /**
    * @description validate the timely result of a group of form elements
    * @param {array}   evUnits: array<EVUnit>, the elements and validators within this group
@@ -48,18 +26,29 @@ export class FormValidator {
     this.evUnits = evUnits;
     this.options = Object.assign({}, defaultOptions, options);
     this._applied = false;
-    this._results = this.evUnits.map(x => x.validator(x.element)); // array<boolean>
+    this._results = []; // array<boolean>
     this._listeners = new WeakMap(); // WeakMap<Element, ListenerFunction>
   }
   apply = () => {
     if (!this._applied) {
       this.options.beforeApply();
-      this._init();
+      this.evUnits.forEach((x, i) => {
+        ((evUnit, idx) => {
+          const listener = () => {
+            this._validateSingleElement(evUnit, idx);
+            this._triggerCallback();
+          };
+          evUnit.element.addEventListener("input", listener, false);
+          this._listeners.set(evUnit.element, listener);
+          this._validateSingleElement(evUnit, idx);
+        })(x, i);
+      });
       this._triggerCallback();
       this._applied = true;
       this.options.afterApply();
     }
   };
+
   unapply = () => {
     if (this._applied) {
       this.options.beforeUnapply();
@@ -68,28 +57,33 @@ export class FormValidator {
         const listener = this._listeners.get(x.element);
         x.element.removeEventListener("input", listener, false);
         this._listeners.delete(x.element);
+        const { validStyle, invalidStyle } = x.options;
+        Object.keys(Object.assign({}, validStyle, invalidStyle)).forEach(
+          k => (x.element.style[k] = "unset")
+        );
       });
       this._applied = false;
+      this._results = [];
       this.options.afterUnapply();
     }
   };
-  _init = () => {
-    this.evUnits.forEach((x, i) => {
-      this._setSingleElementStyle(x, i);
-      const listener = () => {
-        this._results[i] = x.validator(x.element);
-        this._setSingleElementStyle(x, i);
-        this._triggerCallback();
-      };
-      x.element.addEventListener("input", listener, false);
-      this._listeners.set(x.element, listener);
-    });
-  };
 
-  _setSingleElementStyle = (evUnit, i) =>
+  _setSingleElementStyle = (evUnit, i) => {
     Object.entries(
       this._results[i] ? evUnit.options.validStyle : evUnit.options.invalidStyle
     ).forEach(([k, v]) => (evUnit.element.style[k] = v));
+  };
+
+  _validateSingleElement = (evUnit, i) => {
+    this._results[i] = evUnit.validator(evUnit.element);
+    this._setSingleElementStyle(evUnit, i);
+  };
+
+  _unsetSingleElementStyle = evUnit => {
+    Object.keys(
+      Object.assign({}, evUnit.options.validStyle, evUnit.options.invalidStyle)
+    ).forEach(k => (evUnit.element.style[k] = "unset"));
+  };
 
   isValid = () => this.options.validate(this._results);
 
