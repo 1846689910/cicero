@@ -20,5 +20,12 @@ export default class EVUnit {
     this.element = element;
     this.validator = validator;
     this.options = options;
+    this.options._originalStyle = Object.keys({
+      ...options.validStyle,
+      ...options.invalidStyle
+    }).reduce((p, k) => {
+      p[k] = this.element.style[k];
+      return p;
+    }, {});
   }
 }

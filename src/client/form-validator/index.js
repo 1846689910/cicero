@@ -47,25 +47,23 @@ export default class FormValidator {
       this._applied = true;
       this.options.afterApply();
     }
+    return this;
   };
 
   unapply = () => {
     if (this._applied) {
       this.options.beforeUnapply();
-      // TODO: once unapplied, needs to reset styles of recipient?
       this.evUnits.forEach(x => {
         const listener = this._listeners.get(x.element);
         x.element.removeEventListener("input", listener, false);
         this._listeners.delete(x.element);
-        const { validStyle, invalidStyle } = x.options;
-        Object.keys(Object.assign({}, validStyle, invalidStyle)).forEach(
-          k => (x.element.style[k] = "unset")
-        );
+        this._unsetSingleElementStyle(x);
       });
       this._applied = false;
       this._results = [];
       this.options.afterUnapply();
     }
+    return this;
   };
 
   _setSingleElementStyle = (evUnit, i) => {
@@ -80,9 +78,9 @@ export default class FormValidator {
   };
 
   _unsetSingleElementStyle = evUnit => {
-    Object.keys(
-      Object.assign({}, evUnit.options.validStyle, evUnit.options.invalidStyle)
-    ).forEach(k => (evUnit.element.style[k] = "unset"));
+    Object.entries(evUnit.options._originalStyle).forEach(
+      ([k, v]) => (evUnit.element.style[k] = v)
+    );
   };
 
   isValid = () => this.options.validate(this._results);
