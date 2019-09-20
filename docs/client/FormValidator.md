@@ -82,7 +82,7 @@ and also watch each element's validity status
   </tbody>
 </table>
 
-### usage
+## usage
 
 ```html
 name: <input id="name" type="text" autocomplete="off" /> 
