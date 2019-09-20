@@ -14,8 +14,8 @@
 import { PopupWindow } from "cicero/lib/client";
 
 const bodyHTML = `
-  <div style="height: 100%; width: 100%; display: flex; flex-flow: column wrap; overflow: hidden;">
-    <div style="position: relative; top: 35%;">
+  <div style="height: 100%; width: 100%; display: flex; flex-flow: row wrap; justify-content: center; overflow: hidden;">
+    <div style="align-self:center;">
       <h2 style="text-align:center;">...Amazing In Built...</h2>
       <div style="text-align:center;">
         <button class="btn btn-primary">Demo</button>
@@ -77,9 +77,7 @@ const popup = new PopupWindow({ title: "Welcome to type-18", bodyHTML });
       <td><b><code>{
         height: "100%",
         margin: "10px",
-        display: "flex",
         border: "0.5px solid rgba(0, 0, 0, 0.1)",
-        flexFlow: "row wrap"
       }</code></b></td>
       <td><b>set the style of window body, whose class is <code>cicero-popup-window-body</code></b></td>
     </tr>

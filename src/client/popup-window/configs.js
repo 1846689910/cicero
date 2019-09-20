@@ -37,9 +37,7 @@ export const windowTitleDefaultStyle = {
 export const windowBodyDefaultStyle = {
   height: "100%",
   margin: "10px",
-  display: "flex",
   border: "0.5px solid rgba(0, 0, 0, 0.1)",
-  flexFlow: "row wrap"
 };
 export const closeBtnStyle = {
   color: "#E6605C",

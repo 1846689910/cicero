@@ -22,6 +22,8 @@ The following utils are only applicable to front end client side in browser envi
 
 - **[Binder](./docs/client/Binder.md)**
 
+- **[FormValidator](./docs/client/FormValidator.md)**
+
 ### Compatible
 
 The following utils are applicable to both client side and server side

@@ -1,3 +1,12 @@
+# 9/20/2019
+
+#### Unreleased
+
+### Updates
+
+- Update `README.md`
+- Update `windowBodyDefaultStyle` of `PopupWindow.js`
+
 # 9/19/2019
 
 #### [1.2.1](https://github.com/1846689910/cicero/commit/e96da2d08d0fcafecd12ca0b1a2a804809077dc7)
