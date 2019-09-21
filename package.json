@@ -28,10 +28,8 @@
     "react-dom": "^16.9.0"
   },
   "devDependencies": {
-    "@babel/runtime": "^7.6.0",
-    "funny-react-app-archetype": "^1.0.2",
+    "funny-react-app-archetype": "^1.0.0",
     "jsdom": "^15.1.1",
-    "mocha": "^6.2.0",
     "uglify-es": "^3.3.9"
   },
   "engines": {
