@@ -3,17 +3,19 @@ export default class CarouselItem {
   constructor(options = {}) {
     this.content = options.content;
     this.caption = options.caption;
+    this.style = options.style;
     this._carouselItem = new DomElement("div").workOnClassList(x =>
       x.add("carousel-item")
-    );
+    ).setStyle(this.style);
     this._captionWrapper = new DomElement("div").workOnClassList(x =>
       x.add("carousel-caption", "d-none", "d-md-block")
     );
+    this._carouselItem = this._fillCarouselItem().append(
+      this._fillCaptionWrapper().get()
+    ).get();
   }
-  get = () =>
-    this._fillCarouselItem()
-      .append(this._fillCaptionWrapper())
-      .get();
+
+  get = () => this._carouselItem;
 
   _fillCarouselItem = () => {
     if (typeof this.content === "string") {
