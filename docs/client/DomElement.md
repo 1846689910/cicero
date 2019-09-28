@@ -78,12 +78,12 @@
     <tr>
       <td><b>DomElement</b></td>
       <td><b>append(...eles: object)</b></td>
-      <td><b>append several html elements in this element</b></td>
+      <td><b>append several HtmlDomElements or this class DomElement in this element</b></td>
     </tr>
     <tr>
       <td><b>DomElement</b></td>
       <td><b>prepend(...eles: object)</b></td>
-      <td><b>prepend several html elements in this element</b></td>
+      <td><b>prepend several HtmlDomElements or this class DomElement in this element</b></td>
     </tr>
     <tr>
       <td><b>DomElement</b></td>

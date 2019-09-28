@@ -24,6 +24,8 @@ The following utils are only applicable to front end client side in browser envi
 
 - **[FormValidator](./docs/client/FormValidator.md)**
 
+- **[Carousel](./docs/client/Carousel.md)**
+
 ### Compatible
 
 The following utils are applicable to both client side and server side

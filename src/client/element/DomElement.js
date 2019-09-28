@@ -36,12 +36,18 @@ class DomElement {
     return this;
   };
   get = () => this.ele;
+  /**
+   * @param {array} eles: array of HtmlDomElement or this class DomElement
+   */
   append = (...eles) => {
-    this.ele.append(...eles);
+    this.ele.append(...eles.map(x => (x instanceof DomElement ? x.get() : x)));
     return this;
   };
+  /**
+  * @param {array} eles: array of HtmlDomElement or this class DomElement
+  */
   prepend = (...eles) => {
-    this.ele.prepend(...eles);
+    this.ele.prepend(...eles.map(x => (x instanceof DomElement ? x.get() : x)));
     return this;
   };
   addEvent = (...eventInfoArrs) => {
