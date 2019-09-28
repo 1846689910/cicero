@@ -19,7 +19,7 @@
   </thead>
   <tbody>
     <tr>
-      <td><b>new CarouselItem(id: string, carouselItems: array, options: object)</b></td>
+      <td><b>new CarouselItem(id: string, carouselItems: array<code><a href="./CarouselItem.md">[CarouselItem]</a></code>, options: object)</b></td>
       <td><b>create a bootstrap styled Carousel instance</b>
         <pre>
         options: {
