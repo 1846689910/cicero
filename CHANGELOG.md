@@ -1,5 +1,5 @@
 # 9/27/2019
-#### Unreleased
+#### [1.3.0](https://github.com/1846689910/cicero/commit/ead395436cacf91029f61d645133674a37a8a820)
 
 ### Creates
 
