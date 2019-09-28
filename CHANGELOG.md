@@ -1,9 +1,13 @@
 # 9/27/2019
 #### Unreleased
 
-#### Creates
+### Creates
 
 - Add `Carousel` and `CarouselItem`
+
+### Updates
+
+- Update `DomElement` to make `append` and `prepend` able to deal with Both Html-Dom-Element or class `DomElement`
 
 # 9/20/2019
 
