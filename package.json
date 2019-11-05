@@ -1,6 +1,6 @@
 {
   "name": "cicero",
-  "version": "1.3.0",
+  "version": "1.4.0",
   "description": "a useful utils collection",
   "main": "lib/server/index.js",
   "browser": "lib/client/index.js",

@@ -30,8 +30,14 @@ The following utils are only applicable to front end client side in browser envi
 
 The following utils are applicable to both client side and server side
 
+- **[ActionWatcher](./docs/compatible/ActionWatcher.md)**
+
+- **[Container](./docs/compatible/Container.md)**
+
 ### Server
 
 The following utils are only applicable to back end server side in node.js environment
 
 - **[register-babel](./docs/server/register-babel.md)**
+
+- **[utils](./docs/server/utils.md)**
